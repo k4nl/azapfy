@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import HerosContext from './HerosContext';
 import getHeros from '../services/herosApi';
 
-
-
 const PlanetsProvider = ({ children }) => {
 
   const [data, setData] = useState([]);
@@ -11,8 +9,8 @@ const PlanetsProvider = ({ children }) => {
   const fetchHeros = async () => {
     const herosData = await getHeros();
     setData(
-      herosData,
-    )
+      herosData[5],
+    );
   }
 
   useEffect(() => {
