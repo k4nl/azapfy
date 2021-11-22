@@ -9,7 +9,7 @@ const PlanetsProvider = ({ children }) => {
   const fetchHeros = async () => {
     const herosData = await getHeros();
     setData(
-      herosData[5],
+      herosData[40],
     );
   }
 
