@@ -6,11 +6,11 @@ const RadioFilters = ({ props }) => {
     <div>
       <input
         type="radio"
-        name={ `${type}-input` }
+        name={ type }
         value={ value }
         onChange= { handler }
       />
-      <label htmlFor={ `${type}-input` }>{ value }</label>
+      <label htmlFor={ type }>{ value }</label>
   </div>
   )
 }

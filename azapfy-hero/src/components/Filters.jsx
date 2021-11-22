@@ -6,44 +6,62 @@ const Filters = () => {
 
   const { handleClick } = useContext(HerosContext);
 
-  const [name, setName] = useState('');
-  const [gender, setGenre] = useState('Default');
+  const [heroName, setHeroName] = useState('');
   const [race, setRace] = useState('');
-  const [alignment, setAlignment] = useState('');
+  const [filters, setFilters] = useState({});
 
-  const genderTypes = ["Male", "Female", "Default"];
-  const alignmentTypes = ["good", "bad", "default"]
+  const genderTypes = ['male', 'female'];
+  const alignmentTypes = ['good', 'bad', 'neutral'];
 
-  const handleChange = ({ target }) => {
-
-    const { value } = target;
-    if(target.name === 'gender-input') {
-      setGenre(value)
-    }
-    if(target.name === 'race-input') {
-      setRace(value)
-    }
-    if(target.name === 'alignment-input') {
-      setAlignment(value)
+  const removeObjFromFilter = (value, objkey) => {
+    if(value.length === 0) {
+      let state = {...filters};
+      console.log(state[objkey])
+      delete state[objkey];
+      setFilters(state);
     }
   }
+
+  const handleChange = ({ target }) => {
+    const { value, name } = target;
+    setFilters({...filters, [name]: value });
+    if (name === 'gender') {
+      setFilters(({appearance}) => (
+        {...filters, appearance: { ...appearance, [name]: value } }
+      ));
+    }
+    if (name === 'alignment') {
+      setFilters({...filters, biography: { [name]: value } });
+    }
+    if (name === 'name') {
+      setHeroName(value);
+      removeObjFromFilter(value, 'name')
+    }
+    if (name === 'race') {
+      setRace(value)
+      setFilters(({appearance}) => (
+        {...filters, appearance: { ...appearance, [name]: value } }
+      ));
+      removeObjFromFilter(value, 'race');
+    }
+  };
 
   return (
     <div>
       <div>
-        <label htmlFor="name-input">Name</label>
+        <label htmlFor="name">Name</label>
         <input 
           type="text"
-          name="name-input"
-          value={ name }
+          name="name"
+          value={ heroName }
           onChange= { handleChange }
         />
       </div>
       <div>
-        <label htmlFor="race-input">Race</label>
+        <label htmlFor="race">Race</label>
         <input 
           type="text"
-          name="race-input"
+          name="race"
           value={ race }
           onChange= { handleChange }
         />
@@ -75,14 +93,14 @@ const Filters = () => {
       <button
         type="button"
         id="filter"
-        onClick={ handleClick }
+        onClick={ () => handleClick({type: 'filter', filters,}) }
       >
         Filter
       </button>
       <button
         type="button"
         id="clear"
-        onClick={ handleClick }
+        onClick={ () =>  handleClick({type: 'clear'}) }
       >
         Clear
       </button>

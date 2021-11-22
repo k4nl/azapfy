@@ -5,23 +5,75 @@ import getHeros from '../services/herosApi';
 const PlanetsProvider = ({ children }) => {
 
   const [data, setData] = useState([]);
+  const [dataCopy, setDataCopy] = useState([]);
 
   const fetchHeros = async () => {
     const herosData = await getHeros();
-    setData(
-      herosData[40],
-    );
+    setData(herosData);
+    setDataCopy(herosData);
   }
 
   useEffect(() => {
     fetchHeros();
-  },);
+  },[]);
+
+  const checkGender = (inputGender, heroGender) => {
+    return heroGender.toLowerCase() === inputGender;
+  }
+
+  const checkRace = (inputRace, heroRace) => {
+    let raceNotNull = heroRace === null ? '' : heroRace;
+    return raceNotNull.toLowerCase().includes(inputRace);
+  }
+
+  const handleAppearance = (props, {appearance : { gender, race }}) => {
+    if (props.length > 1) {
+      props.sort();
+      return (
+        checkRace(props[1][1], race) && checkGender(props[0][1], gender)
+      );
+    }
+    if(props[0][0] === 'race') {
+      return checkRace(props[1][1], race)
+    }
+    return checkGender(props[0][1], gender)
+  }
+
+  const handlerFilter = (props) => {
+    let filtered = dataCopy;
+    const entries = Object.entries(props);
+    for (const [key, value] of entries) {
+      const property = Object.entries(value);
+      filtered = filtered.filter((hero) => {
+        const heroProp = hero[key][property[0][0]];
+        const filterProp = value[property[0][0]];
+        if(key === 'name') {
+          return hero[key].toLowerCase().startsWith(value.toLowerCase());
+        }
+        if(key === 'appearance') {
+          return handleAppearance(property, hero);
+        }
+        return heroProp.toLowerCase() === filterProp.toLowerCase();
+      });
+    }
+    console.log(filtered);
+  }
+
+  const handleClick = (props) => {
+    const { filters } = props;
+    if (props.type === 'filter') {
+      handlerFilter(filters)
+    } else {
+      console.log('limpa os filtros e aparecem todos os herois')
+    }
+  } 
 
 
   return(
     <HerosContext.Provider
       value= { {
-        data
+        data,
+        handleClick
       }}
       >
         {children}
