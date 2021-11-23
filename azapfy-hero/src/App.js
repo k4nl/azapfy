@@ -1,5 +1,5 @@
 import React from 'react';
-import PlanetsProvider from './context/HerosProvider';
+import HerosProvider from './context/HerosProvider';
 import Header from './components/Header';
 import Filters from './components/Filters';
 import HerosRow from './components/HerosRow';
@@ -11,11 +11,11 @@ import './App.css'
 function App() {
 
   return (
-    <PlanetsProvider>
-        <Header />
-        <Filters />
-        <HerosRow />
-    </PlanetsProvider>
+    <HerosProvider>
+      <Header />
+      <Filters />
+      <HerosRow />
+    </HerosProvider>
   );
 }
 

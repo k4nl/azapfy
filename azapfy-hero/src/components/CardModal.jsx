@@ -33,7 +33,9 @@ export default function CardModal({ props }) {
     winner,
     setSelectedHero,
     setChallengeHero,
-    setWinner
+    setWinner,
+    setDataCopy,
+    data,
   } = props;
 
   const [openModal, setOpenModal] = useState(props.open);
@@ -68,6 +70,8 @@ export default function CardModal({ props }) {
           setSelectedHero({});
           setChallengeHero({});
           setWinner('');
+          setDataCopy(data);
+          window.location.reload();
         })}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

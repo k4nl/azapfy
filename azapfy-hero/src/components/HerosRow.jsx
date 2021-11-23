@@ -1,17 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState, useEffect } from 'react';
 import HerosContext from '../context/HerosContext';
-import './cards.css';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import CardModal from './CardModal';
+import './cards.css';
 
-const Cards = () => {
-  const { dataCopy, loading } = useContext(HerosContext);
+const HerosRow = () => {
+  const { dataCopy, loading, setDataCopy, data } = useContext(HerosContext);
   const [ numberCards, setNumberCards ] = useState({ first: 0, last: 20 });
   const [ selectedHero, setSelectedHero ] = useState({});
   const [ challengeHero, setChallengeHero ] = useState({});
   const [ increaseDisabled, setIncreaseDisabled ] = useState(false);
   const [ winner, setWinner ] = useState('');
+
+  const verifiedSelectedHero = Object.keys(selectedHero).length;
+  const verifiedChallengeHero = Object.keys(selectedHero).length;
 
   const handleNumberCards = (type) => {
     const { first, last } = numberCards;
@@ -33,17 +36,17 @@ const Cards = () => {
   const handleClickSelect = ({ target }) => {
     if(!target.id) {
       const hero = dataCopy.find(({ id }) => Number(target.parentNode.id) === Number(id));
-      if(Object.keys(selectedHero).length === 0) {
+      if(verifiedSelectedHero === 0) {
         setSelectedHero(hero);
-        target.parentNode.classList.add('selected')
+        target.parentNode.classList.add('selected');
       } else {
         setChallengeHero(hero);
       }
     } else {
       const hero = dataCopy.find(({ id }) => Number(target.id) === Number(id));
-      if (Object.keys(selectedHero).length === 0) {
+      if (verifiedChallengeHero === 0) {
         setSelectedHero(hero);
-        target.classList.add('selected')
+        target.classList.add('selected');
       } else {
         setChallengeHero(hero);
       }
@@ -76,9 +79,17 @@ const Cards = () => {
     verifyBattle(selectedHero, challengeHero);
   }, [challengeHero])
 
-  
-  if(loading) return <p>Loading...</p>
+  if(loading) {
+    return (
+      <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    )
+  }
   if(dataCopy.length === 0) return <p>Hero not found :(</p>
+
   return (
     <main>
       <div className="d-flex justify-content-end button-box">
@@ -97,14 +108,14 @@ const Cards = () => {
         </button>
       </div>
       <div className="d-flex flex-wrap justify-content-around mx-3">
-        { winner !== '' ? <CardModal props={ { selectedHero, challengeHero, winner, open: true, setSelectedHero, setChallengeHero, setWinner,} }/> : ''}
+        { winner !== '' ? <CardModal props={ { selectedHero, challengeHero, winner, open: true, setSelectedHero, setChallengeHero, setWinner, setDataCopy, data, } }/> : ''}
         {
           dataCopy.map((hero, index) => {
             while (index >= numberCards.first && index <= numberCards.last) {
               return (
                 <div key={hero.id}
-                  className="d-flex flex-column
-                  align-items-center cards-border div-border"
+                  className="d-flex flex-column align-items-center
+                  cards-border div-border"
                   id={ hero.id }
                   onClick={ handleClickSelect }
                 >
@@ -121,4 +132,4 @@ const Cards = () => {
   )
 }
 
-export default Cards;
+export default HerosRow;

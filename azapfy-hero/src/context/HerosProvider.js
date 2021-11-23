@@ -82,6 +82,7 @@ const PlanetsProvider = ({ children }) => {
         handleClick,
         dataCopy,
         loading,
+        setDataCopy,
       }}
       >
         {children}

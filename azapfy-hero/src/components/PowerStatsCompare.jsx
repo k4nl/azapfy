@@ -24,7 +24,7 @@ export default function PowerStatsCompare({ props }) {
           { data.name }
         </CardContent>
       </Card>
-      <div className="d-flex flex-row px-3 mb-5">
+      <div className="d-flex px-3 mb-5">
         <div className="d-flex flex-column mt-2">
           <List>
             { powers.map((power) => {
