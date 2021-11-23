@@ -9,6 +9,7 @@ const Filters = () => {
   const [heroName, setHeroName] = useState('');
   const [race, setRace] = useState('');
   const [filters, setFilters] = useState({});
+  const [disabled, setDisabled] = useState(true);
 
   const genderTypes = ['male', 'female'];
   const alignmentTypes = ['good', 'bad', 'neutral'];
@@ -16,9 +17,11 @@ const Filters = () => {
   const removeObjFromFilter = (value, objkey) => {
     if(value.length === 0) {
       let state = {...filters};
-      console.log(state[objkey])
       delete state[objkey];
       setFilters(state);
+    }
+    if(value.length === 0 && Object.keys(filters).length === 1) {
+      setDisabled(true)
     }
   }
 
@@ -29,16 +32,21 @@ const Filters = () => {
       setFilters(({appearance}) => (
         {...filters, appearance: { ...appearance, [name]: value } }
       ));
+      setDisabled(false);
     }
     if (name === 'alignment') {
       setFilters({...filters, biography: { [name]: value } });
+      setDisabled(false);
     }
     if (name === 'name') {
       setHeroName(value);
+      setDisabled(false);
       removeObjFromFilter(value, 'name')
+      
     }
     if (name === 'race') {
-      setRace(value)
+      setRace(value);
+      setDisabled(false);
       setFilters(({appearance}) => (
         {...filters, appearance: { ...appearance, [name]: value } }
       ));
@@ -93,6 +101,7 @@ const Filters = () => {
       <button
         type="button"
         id="filter"
+        disabled={ disabled }
         onClick={ () => handleClick({type: 'filter', filters,}) }
       >
         Filter

@@ -6,16 +6,20 @@ const PlanetsProvider = ({ children }) => {
 
   const [data, setData] = useState([]);
   const [dataCopy, setDataCopy] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchHeros = async () => {
     const herosData = await getHeros();
     setData(herosData);
     setDataCopy(herosData);
+    setLoading(false);
   }
 
   useEffect(() => {
     fetchHeros();
   },[]);
+
+
 
   const checkGender = (inputGender, heroGender) => {
     return heroGender.toLowerCase() === inputGender;
@@ -40,7 +44,7 @@ const PlanetsProvider = ({ children }) => {
   }
 
   const handlerFilter = (props) => {
-    let filtered = dataCopy;
+    let filtered = data;
     const entries = Object.entries(props);
     for (const [key, value] of entries) {
       const property = Object.entries(value);
@@ -56,10 +60,12 @@ const PlanetsProvider = ({ children }) => {
         return heroProp.toLowerCase() === filterProp.toLowerCase();
       });
     }
-    console.log(filtered);
+    setDataCopy(filtered);
+    setLoading(false);
   }
 
   const handleClick = (props) => {
+    setLoading(true);
     const { filters } = props;
     if (props.type === 'filter') {
       handlerFilter(filters)
@@ -73,7 +79,9 @@ const PlanetsProvider = ({ children }) => {
     <HerosContext.Provider
       value= { {
         data,
-        handleClick
+        handleClick,
+        dataCopy,
+        loading,
       }}
       >
         {children}
