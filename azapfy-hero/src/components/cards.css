@@ -14,10 +14,6 @@ img {
   border-radius: inherit;
 }
 
-.selected {
-  border: 5px solid red;
-}
-
 .button-box {
   margin-right: 20px;
 }
@@ -33,4 +29,8 @@ img {
 
 .button-p-n {
   margin-right: 20px;
+}
+
+.selected {
+  border: 5px solid red;
 }

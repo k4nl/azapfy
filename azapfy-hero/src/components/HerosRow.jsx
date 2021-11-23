@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState, useEffect } from 'react';
-
 import HerosContext from '../context/HerosContext';
-import './cards.css'
-import { GrPrevious, GrNext, GrEdit } from 'react-icons/gr'
+import './cards.css';
+import { GrPrevious, GrNext } from 'react-icons/gr';
+import CardModal from './CardModal';
 
 const Cards = () => {
   const { dataCopy, loading } = useContext(HerosContext);
@@ -10,6 +11,7 @@ const Cards = () => {
   const [ selectedHero, setSelectedHero ] = useState({});
   const [ challengeHero, setChallengeHero ] = useState({});
   const [ increaseDisabled, setIncreaseDisabled ] = useState(false);
+  const [ winner, setWinner ] = useState('');
 
   const handleNumberCards = (type) => {
     const { first, last } = numberCards;
@@ -48,18 +50,25 @@ const Cards = () => {
     }
   }
 
-  const renderChallenge = () => {
-    //console.log(selectedHero.powerstats);
-    //console.log(challengeHero.powerstats)
+  const checkWinner = () => {
+    const selectedTotalPower = Object.values(selectedHero.powerstats)
+      .reduce((acc, curr) => acc + curr, 0);
+    const challengerTotalPower = Object.values(challengeHero.powerstats)
+    .reduce((acc, curr) => acc + curr, 0);
+
+    if (selectedTotalPower > challengerTotalPower) {
+      return setWinner(selectedHero.name);
+    }
+    if (selectedTotalPower < challengerTotalPower) {
+      return setWinner(challengeHero.name);
+    }
   }
 
   const verifyBattle = (selected, challenger) => {
     const verifiedSelected = Object.keys(selected).length !== 0 ? true : false;
     const verifiedChallenger = Object.keys(challenger).length !== 0 ? true : false;
-    console.log(selected.powerstats)
-    console.log(challenger.powerstats)
     if (verifiedSelected && verifiedChallenger) {
-      renderChallenge();
+      checkWinner();
     }
   }
 
@@ -88,6 +97,7 @@ const Cards = () => {
         </button>
       </div>
       <div className="d-flex flex-wrap justify-content-around mx-3">
+        { winner !== '' ? <CardModal props={ { selectedHero, challengeHero, winner, open: true, setSelectedHero, setChallengeHero, setWinner,} }/> : ''}
         {
           dataCopy.map((hero, index) => {
             while (index >= numberCards.first && index <= numberCards.last) {
