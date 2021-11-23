@@ -1,0 +1,35 @@
+.by-text {
+  margin: 5px;
+}
+
+.input-text-box {
+  margin: 10px;
+}
+
+.input-form-box {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.input-radio {
+  margin-left: 3px;
+}
+
+.input-radio-box {
+  margin-left: 5px;
+}
+
+.label-radio {
+  padding-left: 5px;
+  
+}
+
+input {
+  padding: 2px 5px 2px 10px;
+  border-radius: 50px;
+}
+
+label {
+  margin-right: 5px;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import HerosContext from '../context/HerosContext';
 import RadioFilters from './RadioFilters';
+import './filters.css'
 
 const Filters = () => {
 
@@ -55,64 +56,72 @@ const Filters = () => {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input 
-          type="text"
-          name="name"
-          value={ heroName }
-          onChange= { handleChange }
-        />
+    <div className="d-flex flex-column filter-box">
+      <div className="d-flex justify-content-center by-text">
+        <div className="input-text-box">
+          <label htmlFor="name">Name: </label>
+          <input 
+            type="text"
+            name="name"
+            value={ heroName }
+            onChange= { handleChange }
+          />
+        </div>
+        <div className="input-text-box">
+          <label htmlFor="race">Race: </label>
+          <input 
+            type="text"
+            name="race"
+            value={ race }
+            onChange= { handleChange }
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="race">Race</label>
-        <input 
-          type="text"
-          name="race"
-          value={ race }
-          onChange= { handleChange }
-        />
+      <div className="d-flex flex-row justify-content-center">
+        <form className="d-flex input-form-box">
+          Gender:
+          { genderTypes.map((type) => {
+            return (
+              <RadioFilters
+                key={ type }
+                props={ { type:'gender', value: type, handler: handleChange }}
+              />
+            );
+          })
+          }
+        </form>
+        <form className="d-flex input-form-box">
+          Alignment:
+          { alignmentTypes.map((type) => {
+            return (
+              <RadioFilters
+                key={ type }
+                props={ { type:'alignment', value: type, handler: handleChange }}
+              />
+            );
+          })
+          }
+        </form>
       </div>
-      <form>
-        Gender:
-        { genderTypes.map((type) => {
-          return (
-            <RadioFilters
-              key={ type }
-              props={ { type:'gender', value: type, handler: handleChange }}
-            />
-          );
-        })
-        }
-      </form>
-      <form>
-        Alignment:
-        { alignmentTypes.map((type) => {
-          return (
-            <RadioFilters
-              key={ type }
-              props={ { type:'alignment', value: type, handler: handleChange }}
-            />
-          );
-        })
-        }
-      </form>
-      <button
-        type="button"
-        id="filter"
-        disabled={ disabled }
-        onClick={ () => handleClick({type: 'filter', filters,}) }
-      >
-        Filter
-      </button>
-      <button
-        type="button"
-        id="clear"
-        onClick={ () =>  handleClick({type: 'clear'}) }
-      >
-        Clear
-      </button>
+      <div className="d-flex justify-content-center">
+        <button
+          type="button"
+          id="filter"
+          disabled={ disabled }
+          className="btn btn-success mt-3 mx-3"
+          onClick={ () => handleClick({type: 'filter', filters,}) }
+        >
+          Filter
+        </button>
+        <button
+          type="button"
+          id="clear"
+          className="btn btn-warning mt-3 mx-3"
+          onClick={ () =>  handleClick({type: 'clear'}) }
+        >
+          Clear
+        </button>
+      </div>
     </div>
   )
 }

@@ -3,14 +3,15 @@ import React from "react";
 const RadioFilters = ({ props }) => {
   const { type, value, handler } = props;
   return (
-    <div>
+    <div className="input-radio-box">
       <input
         type="radio"
         name={ type }
         value={ value }
         onChange= { handler }
+        className="input-radio"
       />
-      <label htmlFor={ type }>{ value }</label>
+      <label className="label-radio" htmlFor={ type }>{ value }</label>
   </div>
   )
 }

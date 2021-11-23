@@ -3,11 +3,8 @@ import logo from '../images/logo.png'
 
 const Header = () => {
   return (
-    <header>
-      <div>
-        Azapfy Heros Battle 2021 - 2022
-      </div>
-      <div>
+    <header className="d-flex justify-content-center">
+      <div className="d-flex align-items-center">
         <img src={logo} alt="azapfy-logo"></img>
       </div>
     </header>

@@ -1,12 +1,12 @@
 .cards-border {
   color: white;
-  background-color: rgba(255, 255, 255, 0.3);;
+  background-color: rgba(255, 255, 255, 0.3);
   border: 3px solid white;
   border-radius: 15px;
 }
 
 .div-border {
-  margin-top: 20px;
+  margin: 20px;
   border-radius: 15px;
 }
 
@@ -16,4 +16,21 @@ img {
 
 .selected {
   border: 5px solid red;
+}
+
+.button-box {
+  margin-right: 20px;
+}
+
+.button-card {
+  margin-left: 10px;
+}
+
+.button-card {
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.button-p-n {
+  margin-right: 20px;
 }
