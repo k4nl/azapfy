@@ -3,15 +3,19 @@ import React, { useContext, useState, useEffect } from 'react';
 import HerosContext from '../context/HerosContext';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import CardModal from './CardModal';
+import AddHeroModal from './AddHeroModal';
 import './cards.css';
 
 const HerosRow = () => {
   const { dataCopy, loading, setDataCopy, data } = useContext(HerosContext);
-  const [ numberCards, setNumberCards ] = useState({ first: 0, last: 20 });
+  const [ numberCards, setNumberCards ] = useState({ first: 0, last: 11 });
   const [ selectedHero, setSelectedHero ] = useState({});
   const [ challengeHero, setChallengeHero ] = useState({});
   const [ increaseDisabled, setIncreaseDisabled ] = useState(false);
   const [ winner, setWinner ] = useState('');
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const verifiedSelectedHero = Object.keys(selectedHero).length;
   const verifiedChallengeHero = Object.keys(selectedHero).length;
@@ -19,10 +23,10 @@ const HerosRow = () => {
   const handleNumberCards = (type) => {
     const { first, last } = numberCards;
     if(type === 'increase' && dataCopy.length >= last) {
-      return setNumberCards({ first: first + 20, last: last + 20 });
+      return setNumberCards({ first: first + 12, last: last + 12 });
     }
     if (first !== 0) {
-      return setNumberCards({ first: first - 20, last: last - 20 })
+      return setNumberCards({ first: first - 12, last: last - 12 })
     }
   }
 
@@ -34,6 +38,7 @@ const HerosRow = () => {
   }, [numberCards, dataCopy])
 
   const handleClickSelect = ({ target }) => {
+    console.log(target)
     if(!target.id) {
       const hero = dataCopy.find(({ id }) => Number(target.parentNode.id) === Number(id));
       if(verifiedSelectedHero === 0) {
@@ -81,9 +86,9 @@ const HerosRow = () => {
 
   if(loading) {
     return (
-      <div class="d-flex justify-content-center mt-5">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center loading-container">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     )
@@ -92,20 +97,30 @@ const HerosRow = () => {
 
   return (
     <main>
-      <div className="d-flex justify-content-end button-box">
-        <button
-          onClick={ (() => handleNumberCards('decrease')) }
-          className="btn btn-info button-p-n"
-        >
-          <GrPrevious />
-        </button>
-        <button
-          disabled={ increaseDisabled }
-          onClick={ (() => handleNumberCards('increase')) }
-          className="btn btn-info button-p-n"
-        >
-          <GrNext />
-        </button>
+      { open ? <AddHeroModal props={ {open, handleClose, setOpen, setDataCopy, data} } /> : ''}
+      <div className="d-flex justify-content-between align-items-end">
+        <div className="button-box">
+          <button
+            onClick={ handleOpen }
+            className="btn btn-info button-p-n"
+            >Add new hero
+          </button>
+        </div>
+        <div className="button-box">
+          <button
+            onClick={ (() => handleNumberCards('decrease')) }
+            className="btn btn-info button-p-n"
+          >
+            <GrPrevious />
+          </button>
+          <button
+            disabled={ increaseDisabled }
+            onClick={ (() => handleNumberCards('increase')) }
+            className="btn btn-info button-p-n"
+          >
+            <GrNext />
+          </button>
+        </div>
       </div>
       <div className="d-flex flex-wrap justify-content-around mx-3">
         { winner !== '' ? <CardModal props={ { selectedHero, challengeHero, winner, open: true, setSelectedHero, setChallengeHero, setWinner, setDataCopy, data, } }/> : ''}
@@ -119,7 +134,7 @@ const HerosRow = () => {
                   id={ hero.id }
                   onClick={ handleClickSelect }
                 >
-                  <img src={hero.images.sm} alt={hero.name}/>
+                  <img src={hero.images.sm} alt={hero.name} className="cards-img"/>
                   <p className="mt-2 fw-bolder">{hero.name}</p>
                 </div>
               )

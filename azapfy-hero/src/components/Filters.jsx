@@ -119,7 +119,7 @@ const Filters = () => {
           className="btn btn-warning mt-3 mx-3"
           onClick={ () =>  handleClick({type: 'clear'}) }
         >
-          Clear
+          Refresh
         </button>
       </div>
     </div>

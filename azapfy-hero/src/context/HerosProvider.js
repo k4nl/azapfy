@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HerosContext from './HerosContext';
 import getHeros from '../services/herosApi';
 
-const PlanetsProvider = ({ children }) => {
+const HerosProvider = ({ children }) => {
 
   const [data, setData] = useState([]);
   const [dataCopy, setDataCopy] = useState([]);
@@ -70,7 +70,7 @@ const PlanetsProvider = ({ children }) => {
     if (props.type === 'filter') {
       handlerFilter(filters)
     } else {
-      console.log('limpa os filtros e aparecem todos os herois')
+      window.location.reload()
     }
   } 
 
@@ -90,4 +90,4 @@ const PlanetsProvider = ({ children }) => {
   )
 }
 
-export default PlanetsProvider;
+export default HerosProvider;

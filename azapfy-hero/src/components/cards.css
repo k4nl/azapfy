@@ -1,3 +1,8 @@
+.loading-container {
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
 .cards-border {
   color: white;
   background-color: rgba(255, 255, 255, 0.3);
@@ -16,6 +21,7 @@ img {
 
 .button-box {
   margin-right: 20px;
+  margin-left: 40px;
 }
 
 .button-card {
@@ -32,5 +38,33 @@ img {
 }
 
 .selected {
-  border: 5px solid red;
+  border: 3px solid red;
+}
+
+.input-power {
+  max-width: 60px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.test {
+  width: 45%;
+  align-items: center;
+}
+
+.container-power-box {
+  width: 100%;
+  background-color: rgb(235, 230, 230);
+}
+
+.cards-img {
+  min-width: 160px;
+  min-height: 240px;
+  max-width: 160px;
+  max-height: 240px;
+}
+
+.max-size {
+  width: 366px;
+  height: 300px;
 }

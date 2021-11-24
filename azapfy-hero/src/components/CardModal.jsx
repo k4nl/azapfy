@@ -50,12 +50,17 @@ export default function CardModal({ props }) {
     let challengeResult = [];
     let selectedResult = [];
     for (let i = 0; i < powerstatsChallenge.length; i += 1) {
-      if (powerstatsSelected[i] >= powerstatsChallenge[i]) {
+      if (Number(powerstatsSelected[i][1]) > Number(powerstatsChallenge[i][1])) {
         selectedResult.push('green')
         challengeResult.push('red')
-      } else {
+      }
+      if (Number(powerstatsSelected[i][1]) < Number(powerstatsChallenge[i][1])) {
         selectedResult.push('red')
         challengeResult.push('green')
+      }
+      if (Number(powerstatsSelected[i][1]) === Number(powerstatsChallenge[i][1])) {
+        challengeResult.push('black')
+        selectedResult.push('black')
       }
     }
     return { challengeResult, selectedResult }
@@ -80,9 +85,9 @@ export default function CardModal({ props }) {
           <Typography
             id="modal-modal-title"
             variant="h6"
-            component="h2"
+            component="h1"
           >
-            { `The winner hero is: ${ winner }`}
+            { `Winner: ${ winner }`}
           </Typography>
           {verifyData > 0 ?
             <Box sx={cardBox}> 

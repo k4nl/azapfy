@@ -4,15 +4,24 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { List } from '@mui/material';
 import { BsArrowUpSquareFill, BsArrowDownSquareFill } from 'react-icons/bs';
+import { GrFormSubtract } from 'react-icons/gr'
 import { IconContext } from "react-icons";
 
 export default function PowerStatsCompare({ props }) {
   const {powers, data, results} = props;
 
-  console.log(results)
+  const checkColor = (color) => {
+    if(color === 'green') {
+      return <BsArrowUpSquareFill />
+    }
+    if(color === 'red') {
+      return <BsArrowDownSquareFill />
+    }
+    return <GrFormSubtract />;
+  }
 
   return (
-    <div className={ props.ch ? "d-flex border flex-row-reverse" : "d-flex border"}>
+    <div className={ props.ch ? "d-flex border flex-row-reverse max-size" : "d-flex border max-size"}>
       <Card>
         <CardMedia
           component="img"
@@ -48,7 +57,7 @@ export default function PowerStatsCompare({ props }) {
                         { color: results[i] }
                       }}
                     >
-                      { results[i] === 'green' ? <BsArrowUpSquareFill /> : <BsArrowDownSquareFill />}
+                      { checkColor(results[i]) }
                     </IconContext.Provider>
                   </div>
                 </li>
