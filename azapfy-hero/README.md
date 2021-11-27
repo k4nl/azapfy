@@ -2,11 +2,11 @@
 
 ## Ferramentas utlizadas
 
-ESLINT
-REACT APP
-BOOTSTRAP
-MATERIAL UI
-REACT ICONS
+* ESLINT
+* REACT APP
+* BOOTSTRAP
+* MATERIAL UI
+* REACT ICONS
 
 ### Como utilizar e visualizar o projeto.
 
@@ -18,6 +18,6 @@ Entre na pasta do projeto e no terminal execute:
 
 ### Projeto feito por 
 
-Gustavo Luis de Moura Braga
-email: gustavoh.bh@gmail.com
-linkedin: https://www.linkedin.com/in/gustavo-luis-de-moura-braga-3a524159/
+* Gustavo Luis de Moura Braga
+* email: gustavoh.bh@gmail.com
+* linkedin: https://www.linkedin.com/in/gustavo-luis-de-moura-braga-3a524159/
