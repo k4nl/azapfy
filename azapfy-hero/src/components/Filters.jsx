@@ -58,45 +58,47 @@ const Filters = () => {
   return (
     <div className="d-flex flex-column filter-box">
       <div className="d-flex justify-content-center by-text">
-        <div className="input-text-box">
-          <label htmlFor="name">Name: </label>
+        <form className="input-text-box">
+          <label htmlFor="name">Name</label>
           <input 
+            id="name-input-filter"
             type="text"
             name="name"
             value={ heroName }
             onChange= { handleChange }
           />
-        </div>
-        <div className="input-text-box">
-          <label htmlFor="race">Race: </label>
+        </form>
+        <form className="input-text-box">
+          <label htmlFor="race">Race</label>
           <input 
+            id="race-input-filter"
             type="text"
             name="race"
             value={ race }
             onChange= { handleChange }
           />
-        </div>
+        </form>
       </div>
       <div className="d-flex flex-row justify-content-center">
         <form className="d-flex input-form-box">
-          Gender:
-          { genderTypes.map((type) => {
+          Gender
+          { genderTypes.map((type, index) => {
             return (
               <RadioFilters
                 key={ type }
-                props={ { type:'gender', value: type, handler: handleChange }}
+                props={ { type:'gender', value: type, handler: handleChange, index }}
               />
             );
           })
           }
         </form>
         <form className="d-flex input-form-box">
-          Alignment:
-          { alignmentTypes.map((type) => {
+          Alignment
+          { alignmentTypes.map((type, index) => {
             return (
               <RadioFilters
                 key={ type }
-                props={ { type:'alignment', value: type, handler: handleChange }}
+                props={ { type:'alignment', value: type, handler: handleChange, index }}
               />
             );
           })
@@ -107,6 +109,7 @@ const Filters = () => {
         <button
           type="button"
           id="filter"
+          data-testid="filter"
           disabled={ disabled }
           className="btn btn-success mt-3 mx-3"
           onClick={ () => handleClick({type: 'filter', filters,}) }
@@ -116,6 +119,7 @@ const Filters = () => {
         <button
           type="button"
           id="clear"
+          data-testid="clear"
           className="btn btn-warning mt-3 mx-3"
           onClick={ () =>  handleClick({type: 'clear'}) }
         >

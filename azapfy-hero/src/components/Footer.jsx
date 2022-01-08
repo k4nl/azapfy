@@ -13,6 +13,7 @@ export default function Footer() {
         <IconContext.Provider value={{size: 25, color: 'white'}}>
           <li className="ms-3">
             <a
+              data-testid="github-link"
               rel="noreferrer"
               target="_blank"
               href="https://github.com/k4nl">
@@ -21,6 +22,7 @@ export default function Footer() {
           </li>
           <li className="ms-3">
             <a
+              data-testid="linkedin-link"
               rel="noreferrer"
               href="https://www.linkedin.com/in/gustavo-luis-de-moura-braga-3a524159/" target="_blank">
                 <GrLinkedin />

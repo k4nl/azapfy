@@ -38,7 +38,6 @@ const HerosRow = () => {
   }, [numberCards, dataCopy])
 
   const handleClickSelect = ({ target }) => {
-    console.log(target)
     if(!target.id) {
       const hero = dataCopy.find(({ id }) => Number(target.parentNode.id) === Number(id));
       if(verifiedSelectedHero === 0) {
@@ -93,6 +92,7 @@ const HerosRow = () => {
       </div>
     )
   }
+
   if(dataCopy.length === 0) return <p>Hero not found :(</p>
 
   return (
@@ -133,6 +133,7 @@ const HerosRow = () => {
                   cards-border div-border"
                   id={ hero.id }
                   onClick={ handleClickSelect }
+                  data-testid={`${hero.name}-${index}`}
                 >
                   <img src={hero.images.sm} alt={hero.name} className="cards-img"/>
                   <p className="mt-2 fw-bolder">{hero.name}</p>
